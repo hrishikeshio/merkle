@@ -24,7 +24,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
   var regexpStr = REGEXP[hashFuncName] || REGEXP.DEFAULT
   if (useUpperCaseForHash) {
     // Use only capital letters if upper case is enabled
-    regexpStr = regexpStr.replace('a', 'A').replace('f', 'F')
+    // regexpStr = regexpStr.replace('a', 'A').replace('f', 'F')
   }
   that.hashResultRegexp = new RegExp(regexpStr)
   that.leaves = []
@@ -40,7 +40,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     } else {
       var hash = hashFunc(data)
       if (useUpperCaseForHash) {
-        hash = hash.toUpperCase()
+        // hash = hash.toUpperCase()
       }
       that.leaves.push(hash)
     }
@@ -97,7 +97,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     for (var i = 0; i < leaves.length - 1; i = i + 2) {
       hash = hashFunc(leaves[i] + leaves[i + 1])
       if (useUpperCaseForHash) {
-        hash = hash.toUpperCase()
+        // hash = hash.toUpperCase()
       }
       nodes[i / 2] = hash
     }
@@ -107,9 +107,9 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     return nodes
   }
 
-  function getProofPath (index, excludeParent) {
+  function getProofPath (index, excludeParent, compact) {
     var proofPath = []
-
+    var compactProofPath = []
     for (var currentLevel = depth(); currentLevel > 0; currentLevel--) {
       var currentLevelNodes = level(currentLevel)
       var currentLevelCount = currentLevelNodes.length
@@ -124,9 +124,11 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
       if (index % 2) { // the index is the right node
         nodes.left = currentLevelNodes[index - 1]
         nodes.right = currentLevelNodes[index]
+        compactProofPath.push(nodes.left)
       } else {
         nodes.left = currentLevelNodes[index]
         nodes.right = currentLevelNodes[index + 1]
+        compactProofPath.push(nodes.right)
       }
 
       index = Math.floor(index / 2) // set index to the parent index
@@ -143,6 +145,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         })
       }
     }
+    if (compact) return compactProofPath
     return proofPath
   }
 
@@ -236,5 +239,5 @@ module.exports = function (hashFuncName, useUpperCaseForHash) {
   }, hashFuncName,
 
   // Use upper case y default
-  useUpperCaseForHash !== false)
+  useUpperCaseForHash !== true)
 }
