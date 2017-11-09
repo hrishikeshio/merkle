@@ -1,7 +1,10 @@
 
 var crypto = require('crypto')
-var keccak256 = require('js-sha3').keccak256
+// var keccak256 = require('js-sha3').keccak256
+var web3 = require('web3')
 var through = require('through')
+
+var ethUtils = require('ethereumjs-util')
 
 var REGEXP = {
   'md5': '^[0-9a-f]{32}$',
@@ -235,7 +238,13 @@ module.exports = function (hashFuncName, useUpperCaseForHash) {
     if (hashFuncName === 'none') {
       return input
     } else if (hashFuncName === 'keccak256') {
-      return keccak256(input)
+      console.log(ethUtils.addHexPrefix(input))
+      console.log(typeof ethUtils.addHexPrefix(input))
+      if (web3.utils.isHex(input)) {
+        return web3.utils.soliditySha3(ethUtils.addHexPrefix(input))
+      } else {
+        return web3.utils.soliditySha3(input)
+      }
     } else {
       var hash = crypto.createHash(hashFuncName)
       return hash.update(input).digest('hex')
