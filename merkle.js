@@ -41,10 +41,8 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
       // Push leaf without hashing it since it is already a hash
       that.leaves.push(data)
     } else {
-      var hash = hashFunc(data)
-      if (useUpperCaseForHash) {
-        // hash = hash.toUpperCase()
-      }
+      var hash = web3.utils.soliditySha3(data)
+
       that.leaves.push(hash)
     }
     return that
@@ -98,10 +96,17 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     var nodes = []
     var hash
     for (var i = 0; i < leaves.length - 1; i = i + 2) {
-      if (leaves[i] < leaves[i + 1]) {
-        hash = hashFunc(leaves[i], leaves[i + 1])
+      let el1, el2
+      if (web3.utils.isHex(leaves[i])) {
+        el1 = ethUtils.addHexPrefix(leaves[i])
+      }
+      if (web3.utils.isHex(leaves[i + 1])) {
+        el2 = ethUtils.addHexPrefix(leaves[i + 1])
+      }
+      if (el1 < el2) {
+        hash = web3.utils.soliditySha3(el1, el2)
       } else {
-        hash = hashFunc(leaves[i + 1], leaves[i])
+        hash = web3.utils.soliditySha3(el2, el2)
       }
       if (useUpperCaseForHash) {
         // hash = hash.toUpperCase()
