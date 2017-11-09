@@ -78,7 +78,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
 
   function compute () {
     var theDepth = depth()
-    if (that.rows.length == 0) {
+    if (that.rows.length === 0) {
       // Compute the nodes of each level
       for (var i = 0; i < theDepth; i++) {
         that.rows.push([])
@@ -104,8 +104,10 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         el2 = ethUtils.addHexPrefix(leaves[i + 1])
       }
       if (el1 < el2) {
+        console.log('lets hash lol ', el1, el2)
         hash = web3.utils.soliditySha3(el1, el2)
       } else {
+        console.log('lets hash lol ', el2, el1)
         hash = web3.utils.soliditySha3(el2, el2)
       }
       if (useUpperCaseForHash) {
