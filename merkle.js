@@ -108,13 +108,15 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         hash = web3.utils.soliditySha3(el1, el2)
       } else {
         console.log('lets hash lol2 ', el2, el1)
-        console.log(el1.length)
-        console.log(el2.length)
-        console.log(web3.utils.soliditySha3('0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9', '0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'))
-        hash = web3.utils.soliditySha3(el2, el2)
-        console.log(' ok hashed2', hash)
+        // console.log(el1.length)
+        // console.log(el2.length)
+        // console.log(web3.utils.soliditySha3('0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9'))
+        // console.log(web3.utils.soliditySha3('0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'))
+        // console.log(web3.utils.soliditySha3('0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9', '0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'))
+        hash = web3.utils.soliditySha3(el2, el1)
+        // console.log(' ok hashed2', hash)
       }
-      console.log(' ok hashed', hash)
+      // console.log(' ok hashed', hash)
       // if (useUpperCaseForHash) {
       //   // hash = hash.toUpperCase()
       // }
