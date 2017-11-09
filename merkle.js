@@ -110,9 +110,10 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         console.log('lets hash lol ', el2, el1)
         hash = web3.utils.soliditySha3(el2, el2)
       }
-      if (useUpperCaseForHash) {
-        // hash = hash.toUpperCase()
-      }
+      console.log(' ok hashed', hash)
+      // if (useUpperCaseForHash) {
+      //   // hash = hash.toUpperCase()
+      // }
       nodes[i / 2] = hash
     }
     if (remainder === 1) {
@@ -245,16 +246,17 @@ module.exports = function (hashFuncName, useUpperCaseForHash) {
     if (hashFuncName === 'none') {
       return input
     } else if (hashFuncName === 'keccak256') {
-      console.log(ethUtils.addHexPrefix(input))
-      console.log(typeof ethUtils.addHexPrefix(input))
-      if (web3.utils.isHex(input)) {
-        return web3.utils.soliditySha3(ethUtils.addHexPrefix(input))
-      } else {
-        return web3.utils.soliditySha3(input)
-      }
-    } else {
-      var hash = crypto.createHash(hashFuncName)
-      return hash.update(input).digest('hex')
+      console.log("Wrong road traveeler")
+    //   console.log(ethUtils.addHexPrefix(input))
+    //   console.log(typeof ethUtils.addHexPrefix(input))
+    //   if (web3.utils.isHex(input)) {
+    //     return web3.utils.soliditySha3(ethUtils.addHexPrefix(input))
+    //   } else {
+    //     return web3.utils.soliditySha3(input)
+    //   }
+    // } else {
+    //   var hash = crypto.createHash(hashFuncName)
+    //   return hash.update(input).digest('hex')
     }
   }, hashFuncName,
 
