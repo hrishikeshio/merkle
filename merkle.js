@@ -104,10 +104,10 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         el2 = ethUtils.addHexPrefix(leaves[i + 1])
       }
       if (el1 < el2) {
-        console.log('lets hash lol ', el1, el2)
+        console.log('lets hash lol1 ', el1, el2)
         hash = web3.utils.soliditySha3(el1, el2)
       } else {
-        console.log('lets hash lol ', el2, el1)
+        console.log('lets hash lol2 ', el2, el1)
         hash = web3.utils.soliditySha3(el2, el2)
       }
       console.log(' ok hashed', hash)
