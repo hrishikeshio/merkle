@@ -116,7 +116,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         hash = web3.utils.soliditySha3(el2, el1)
         // console.log(' ok hashed2', hash)
       }
-      // console.log(' ok hashed', hash)
+      console.log(' ok hashed', hash)
       // if (useUpperCaseForHash) {
       //   // hash = hash.toUpperCase()
       // }
@@ -125,6 +125,8 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     if (remainder === 1) {
       nodes[((leaves.length - remainder) / 2)] = leaves[leaves.length - 1]
     }
+    console.log('merkle: nodes', nodes)
+
     return nodes
   }
 
