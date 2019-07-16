@@ -2,6 +2,10 @@
 
 Builds a Merkle tree using either sha512, sha256, ripemd160, whirlpool, sha1, md5 or none algorithms.
 
+## hrishikeshio's fork
+Modified the library to use soliditysha3.
+the tests are not updated and hence  will fail. but the library should work fine.
+
 ## Usage
 
 ### Build a Merkle tree

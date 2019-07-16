@@ -1,7 +1,7 @@
 
 var crypto = require('crypto')
 // var keccak256 = require('js-sha3').keccak256
-var web3 = require('web3')
+var web3 = require('web3-utils')
 var through = require('through')
 
 var ethUtils = require('ethereumjs-util')
@@ -41,7 +41,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
       // Push leaf without hashing it since it is already a hash
       that.leaves.push(data)
     } else {
-      var hash = web3.utils.soliditySha3(data)
+      var hash = web3.soliditySha3(data)
 
       that.leaves.push(hash)
     }
@@ -97,15 +97,15 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
     var hash
     for (var i = 0; i < leaves.length - 1; i = i + 2) {
       let el1, el2
-      if (web3.utils.isHex(leaves[i])) {
+      if (web3.isHex(leaves[i])) {
         el1 = ethUtils.addHexPrefix(leaves[i])
       }
-      if (web3.utils.isHex(leaves[i + 1])) {
+      if (web3.isHex(leaves[i + 1])) {
         el2 = ethUtils.addHexPrefix(leaves[i + 1])
       }
       if (el1 < el2) {
         // console.log('lets hash lol1 ', el1, el2)
-        hash = web3.utils.soliditySha3(el1, el2)
+        hash = web3.soliditySha3(el1, el2)
       } else {
         // console.log('lets hash lol2 ', el2, el1)
         // console.log(el1.length)
@@ -113,7 +113,7 @@ function Merkle (hashFunc, hashFuncName, useUpperCaseForHash) {
         // console.log(web3.utils.soliditySha3('0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9'))
         // console.log(web3.utils.soliditySha3('0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'))
         // console.log(web3.utils.soliditySha3('0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01db9', '0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'))
-        hash = web3.utils.soliditySha3(el2, el1)
+        hash = web3.soliditySha3(el2, el1)
         // console.log(' ok hashed2', hash)
       }
       // console.log(' ok hashed', hash)
